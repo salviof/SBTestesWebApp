@@ -5,11 +5,12 @@
 package testesFW.webApp.testes;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanNormal;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoEntidadeNormal;
+
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoEntidadeSimples;
 import com.super_bits.modulosSB.SBCore.modulos.view.formulario.ItfFormularioEntidade;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -27,8 +28,8 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
 
     protected ItfFormularioEntidade<T> pagina;
 
-    private ItfAcaoDoSistema acaoAprovarCampanha;
-    private ItfAcaoDoSistema acaoReprovarCampanha;
+    private ComoAcaoDoSistema acaoAprovarCampanha;
+    private ComoAcaoDoSistema acaoReprovarCampanha;
 
     /**
      * Metodo executado antes do inicio do fluxo de testes, usado por exemplo
@@ -60,7 +61,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
 
             configurarPesquisa();
 
-            for (ItfAcaoDoSistema acao : pagina.getAcoesRegistros()) {
+            for (ComoAcaoDoSistema acao : pagina.getAcoesRegistros()) {
                 if (acao.isUmaAcaoFormulario()) {
                     UtilTestePagina.testaAcaoFormulario((ItfAcaoFormulario) acao);
                 }
@@ -126,7 +127,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
     public abstract ItfFormularioEntidade definirPagina();
 
     public void visualisarDados() {
-        pagina.setAcaoSelecionada((ItfAcaoDoSistema) pagina.getAcaoVisualizar());
+        pagina.setAcaoSelecionada((ComoAcaoDoSistema) pagina.getAcaoVisualizar());
         pagina.executarAcao(pagina.getEntidadesListadas().get(0));
 
         assertTrue("O XHTML para visualizar um registro não foi configurado ao executar a ação visualizar", pagina.getXhtmlAcaoAtual().equals(pagina.getAcaoVisualizar().getXhtml()));
@@ -193,9 +194,9 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
     public void editarDados() {
         try {
             // Usuario clieca no botao editar dentro do primeiro registro que é o entidadesListadas.get(0)
-            pagina.setAcaoSelecionada((ItfAcaoDoSistema) pagina.getAcaoEditar());
+            pagina.setAcaoSelecionada((ComoAcaoDoSistema) pagina.getAcaoEditar());
 
-            ItfBeanSimples entidadeQueOUsuarioIraSelecionar = (ItfBeanSimples) pagina.getEntidadesListadas().get(0);
+            ComoEntidadeSimples entidadeQueOUsuarioIraSelecionar = (ComoEntidadeSimples) pagina.getEntidadesListadas().get(0);
             pagina.executarAcao((T) entidadeQueOUsuarioIraSelecionar);
 
             // espera-se que o registro selecionado agora seja o primeiro registro da lista
@@ -207,14 +208,14 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
             assertTrue("O comprador Selecionado está nulo para edição!", pagina.getEntidadeSelecionada() != null);
             //assertTrue(" A entidade Selecionada não parece ser a que foi configurada ao executar a ação", pagina.getEntidadeSelecionada().equals(pagina.getEntidadesListadas().get(0)));
 
-            ItfBeanSimples entidadeSelecionada = (ItfBeanSimples) pagina.getEntidadeSelecionada();
+            ComoEntidadeSimples entidadeSelecionada = (ComoEntidadeSimples) pagina.getEntidadeSelecionada();
 
-            String nomeAntigo = ((ItfBeanSimples) pagina.getEntidadeSelecionada()).getNomeCurto();
+            String nomeAntigo = ((ComoEntidadeSimples) pagina.getEntidadeSelecionada()).getNomeCurto();
             String nomenovo = "[EDIT]" + nomeAntigo;
-            Long idEntidadeSelecionada = ((ItfBeanSimples) pagina.getEntidadeSelecionada()).getId();
+            Long idEntidadeSelecionada = ((ComoEntidadeSimples) pagina.getEntidadeSelecionada()).getId();
             try {
-                ((ItfBeanSimples) pagina.getEntidadeSelecionada()).getCampoByNomeOuAnotacao(FabTipoAtributoObjeto.NOME.toString()).setValor(nomenovo);
-                nomenovo = ((ItfBeanSimples) pagina.getEntidadeSelecionada()).getNomeCurto();
+                ((ComoEntidadeSimples) pagina.getEntidadeSelecionada()).getCampoByNomeOuAnotacao(FabTipoAtributoObjeto.NOME.toString()).setValor(nomenovo);
+                nomenovo = ((ComoEntidadeSimples) pagina.getEntidadeSelecionada()).getNomeCurto();
             } catch (Throwable t) {
                 fail("Ocorreu um erro ao tentar configurar um novo valor para o nome curto da entidade");
                 lancarErroJUnit(t);
@@ -222,10 +223,10 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
 
             pagina.setAcaoSelecionada(pagina.getAcaoSalvarAlteracoes());
             pagina.executarAcao(pagina.getEntidadeSelecionada());
-            ItfBeanSimples entidadeAlterada = null;
+            ComoEntidadeSimples entidadeAlterada = null;
             for (T entidade : pagina.getEntidadesListadas()) {
-                if (idEntidadeSelecionada == ((ItfBeanSimples) entidade).getId()) {
-                    entidadeAlterada = (ItfBeanSimples) entidade;
+                if (idEntidadeSelecionada == ((ComoEntidadeSimples) entidade).getId()) {
+                    entidadeAlterada = (ComoEntidadeSimples) entidade;
                 }
             }
 
@@ -245,7 +246,7 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
     public void alterarStatus() {
 
         // Usuario clieca no botao Alterar status dentro do primeiro registro que é o entidadesListadas.get(0)
-        ItfBeanNormal entidadeQueOUsuarioIraSelecionar = (ItfBeanNormal) pagina.getEntidadesListadas().get(0);
+        ComoEntidadeNormal entidadeQueOUsuarioIraSelecionar = (ComoEntidadeNormal) pagina.getEntidadesListadas().get(0);
         boolean statusAnterior;
         if (entidadeQueOUsuarioIraSelecionar.isAtivo()) {
             statusAnterior = true;
@@ -254,17 +255,17 @@ public abstract class TestePaginaEntidade<T> extends TesteJunitSBPersistencia {
             statusAnterior = false;
         }
 
-        pagina.setAcaoSelecionada((ItfAcaoDoSistema) pagina.getAcaoAlterarStatus());
+        pagina.setAcaoSelecionada((ComoAcaoDoSistema) pagina.getAcaoAlterarStatus());
         pagina.executarAcao(pagina.getEntidadesListadas().get(0));
         assertTrue("O status não foi alterado", entidadeQueOUsuarioIraSelecionar.isAtivo() != statusAnterior);
 
     }
 
-    public ItfAcaoDoSistema getAcaoAprovarCampanha() {
+    public ComoAcaoDoSistema getAcaoAprovarCampanha() {
         return acaoAprovarCampanha;
     }
 
-    public ItfAcaoDoSistema getAcaoReprovarCampanha() {
+    public ComoAcaoDoSistema getAcaoReprovarCampanha() {
         return acaoReprovarCampanha;
     }
 

@@ -6,10 +6,10 @@ package testesFW.webApp.testes.geradorCodigo;
 
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringsCammelCase;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoController;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoSelecionarAcao;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoController;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoControllerEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoSelecionarAcao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
@@ -39,15 +39,15 @@ public class GeradorGetAcaoDaGestao extends GeradorClasseEscopoApp {
                 + UtilSBCoreStringsCammelCase.getCamelByTextoPrimeiraLetraMaiusculaSemCaracterEspecial(pAcao.getEnumAcaoDoSistema().toString());
     }
 
-    public static void adicionarAcao(JavaClassSource estruturaClasse, ItfAcaoDoSistema pAcao) {
+    public static void adicionarAcao(JavaClassSource estruturaClasse, ComoAcaoDoSistema pAcao) {
         String nomePropriedade = UtilSBCoreStringsCammelCase.getCamelByTextoPrimeiraLetraMaiusculaSemCaracterEspecial(pAcao.getEnumAcaoDoSistema().toString());
 
         String nomeMetodo = "get" + nomePropriedade;
 
-        Class tipoRetorno = ItfAcaoDoSistema.class;
+        Class tipoRetorno = ComoAcaoDoSistema.class;
         switch (pAcao.getTipoAcaoSistema()) {
             case ACAO_DO_SISTEMA:
-                tipoRetorno = ItfAcaoDoSistema.class;
+                tipoRetorno = ComoAcaoDoSistema.class;
 
                 break;
             case ACAO_ENTIDADE_FORMULARIO:
@@ -63,13 +63,13 @@ public class GeradorGetAcaoDaGestao extends GeradorClasseEscopoApp {
                 tipoRetorno = ItfAcaoFormulario.class;
                 break;
             case ACAO_ENTIDADE_CONTROLLER:
-                tipoRetorno = ItfAcaoControllerEntidade.class;
+                tipoRetorno = ComoAcaoControllerEntidade.class;
                 break;
             case ACAO_CONTROLLER:
-                tipoRetorno = ItfAcaoController.class;
+                tipoRetorno = ComoAcaoController.class;
                 break;
             case ACAO_SELECAO_DE_ACAO:
-                tipoRetorno = ItfAcaoSelecionarAcao.class;
+                tipoRetorno = ComoAcaoSelecionarAcao.class;
                 break;
             default:
                 throw new AssertionError(pAcao.getTipoAcaoSistema().name());
@@ -95,7 +95,7 @@ public class GeradorGetAcaoDaGestao extends GeradorClasseEscopoApp {
         getCodigoJava().addImport(MapaAcoesSistema.class);
         adicionarAcao(getCodigoJava(), pAcao);
 
-        for (ItfAcaoDoSistema acao : pAcao.getAcoesVinculadas()) {
+        for (ComoAcaoDoSistema acao : pAcao.getAcoesVinculadas()) {
             adicionarAcao(getCodigoJava(), acao);
         }
 

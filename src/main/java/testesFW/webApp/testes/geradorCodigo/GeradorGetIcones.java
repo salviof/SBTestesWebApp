@@ -7,8 +7,8 @@ package testesFW.webApp.testes.geradorCodigo;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringFiltros;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringValidador;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringsMaiuculoMinusculo;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.ItfFabricaIcone;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.itfIcone;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.ComoFabricaIcone;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.ComoIcone;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.MethodSource;
 
@@ -19,17 +19,17 @@ import org.jboss.forge.roaster.model.source.MethodSource;
  */
 public class GeradorGetIcones extends GeradorClasseEscopoApp {
 
-    private final Class<? extends ItfFabricaIcone> fabricaIcones;
+    private final Class<? extends ComoFabricaIcone> fabricaIcones;
     private boolean componenteNativo;
 
-    public GeradorGetIcones(Class<? extends ItfFabricaIcone> pFabrica, boolean componenteNativo) {
+    public GeradorGetIcones(Class<? extends ComoFabricaIcone> pFabrica, boolean componenteNativo) {
         super("org.coletivoJava.superBitsFW.webPaginas.constantes.icones", pFabrica.getSimpleName().replace("Fab", "Icone"), DIRETORIO_CODIGO_WEB_PAGINAS);
         fabricaIcones = pFabrica;
     }
 
-    private void adicionaIcone(ItfFabricaIcone pIcone, JavaClassSource pEstruturaClasse) {
+    private void adicionaIcone(ComoFabricaIcone pIcone, JavaClassSource pEstruturaClasse) {
 
-        pEstruturaClasse.addProperty(itfIcone.class,
+        pEstruturaClasse.addProperty(ComoIcone.class,
                 UtilSBCoreStringsMaiuculoMinusculo.getPrimeiraLetraMinuscula(UtilSBCoreStringFiltros.gerarUrlAmigavel(pIcone.toString())))
                 .setMutable(false);
 
@@ -40,7 +40,7 @@ public class GeradorGetIcones extends GeradorClasseEscopoApp {
         getCodigoJava().addImport(fabricaIcones);
         String corpoCosntructor = "";
 
-        for (ItfFabricaIcone pcomp : fabricaIcones.getEnumConstants()) {
+        for (ComoFabricaIcone pcomp : fabricaIcones.getEnumConstants()) {
             String nomeVariavel = UtilSBCoreStringsMaiuculoMinusculo.getPrimeiraLetraMinuscula(UtilSBCoreStringFiltros.gerarUrlAmigavel(pcomp.toString()));
             corpoCosntructor += "this." + nomeVariavel + " = " + fabricaIcones.getSimpleName() + "." + pcomp.toString() + ".getIcone(); ";
         }
@@ -49,7 +49,7 @@ public class GeradorGetIcones extends GeradorClasseEscopoApp {
 
         constructor.setBody(corpoCosntructor);
         constructor.setConstructor(true);
-        for (ItfFabricaIcone pIcone : fabricaIcones.getEnumConstants()) {
+        for (ComoFabricaIcone pIcone : fabricaIcones.getEnumConstants()) {
             adicionaIcone(pIcone, getCodigoJava());
 
         }

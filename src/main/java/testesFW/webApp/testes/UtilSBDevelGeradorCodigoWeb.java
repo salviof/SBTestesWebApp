@@ -9,9 +9,9 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivoTexto;
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.ItfFabricaIcone;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.ComoFabricaIcone;
 import com.super_bits.modulosSB.SBCore.modulos.view.componenteObjeto.ContainersVisualizacaoDoObjeto;
-import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.ItfFabTipoComponenteVisual;
+import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.ComoFabTipoComponenteVisual;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 import testesFW.webApp.testes.geradorCodigo.GeradorGetAcaoDaGestao;
 import testesFW.webApp.testes.geradorCodigo.GeradorGetComponentesVisuais;
@@ -33,7 +33,7 @@ public class UtilSBDevelGeradorCodigoWeb {
         }
     }
 
-    public static void criarClassesDeComponentes(Class<? extends ItfFabTipoComponenteVisual> pFabrica, boolean componenteNativo) {
+    public static void criarClassesDeComponentes(Class<? extends ComoFabTipoComponenteVisual> pFabrica, boolean componenteNativo) {
         GeradorGetComponentesVisuais geradorComp = new GeradorGetComponentesVisuais(pFabrica, componenteNativo);
         geradorComp.gerarCodigo();
         String conteudoClasse = geradorComp.getCodigoJava().toString();
@@ -42,7 +42,7 @@ public class UtilSBDevelGeradorCodigoWeb {
 
     }
 
-    public static void criarClassesDeIcones(Class<? extends ItfFabricaIcone> pFabrica, boolean componenteNativo) {
+    public static void criarClassesDeIcones(Class<? extends ComoFabricaIcone> pFabrica, boolean componenteNativo) {
 
         GeradorGetIcones geradorGetIcones = new GeradorGetIcones(pFabrica, componenteNativo);
         geradorGetIcones.gerarCodigo();

@@ -5,7 +5,7 @@
 package org.coletivoJava.fw;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.FabIconeFontAwesome;
 import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.componentes.FabCompVisualEndereco;
 import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.componentes.FabCompVisualFormularioDeAcao;
@@ -39,7 +39,7 @@ public class UtilSBDevelGeradorCodigoWebTest extends TesteJunit {
     public void testGerarCodigoGetAcoesGestao() {
         try {
             System.out.println("TESTE:");
-            // ItfAcaoDoSistema acao = FabAcaoProjetoSB.PROJETO_MB_GERENCIAR.getRegistro();
+            // ComoAcaoDoSistema acao = FabAcaoProjetoSB.PROJETO_MB_GERENCIAR.getRegistro();
             // System.out.println(acao.getComoGestaoEntidade().getAcoesVinculadas().toString());
             // UtilSBDevelGeradorCodigoWeb.gerarGetAppScopeAcoesDeGestaoDoProjeto(FabAcaoProjetoSB.PROJETO_MB_GERENCIAR.getRegistro().getComoGestaoEntidade());
             System.out.println(SBCore.getCaminhoDesenvolvimento());

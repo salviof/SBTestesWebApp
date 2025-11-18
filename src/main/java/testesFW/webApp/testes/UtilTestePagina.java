@@ -15,7 +15,7 @@ import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivo
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoRespostaComunicacao;
 
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.view.formulario.ItfFormularioEntidade;
 
 import org.junit.Assert;
@@ -129,7 +129,7 @@ public abstract class UtilTestePagina {
 
     }
 
-    public static void testaconfigIcone(ItfFabricaAcoes pAcaoDoSistema) {
+    public static void testaconfigIcone(ComoFabricaAcoes pAcaoDoSistema) {
 
         String icone = pAcaoDoSistema.getRegistro().getIconeAcao();
 

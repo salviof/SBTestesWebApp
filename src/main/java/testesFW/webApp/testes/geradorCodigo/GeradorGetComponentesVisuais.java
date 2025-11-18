@@ -9,9 +9,9 @@ import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringFiltros;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringsMaiuculoMinusculo;
 
 import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.FabFamiliaCompVisual;
-import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.ItfComponenteVisualSB;
+import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.ComoComponenteVisualSB;
 
-import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.ItfFabTipoComponenteVisual;
+import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.ComoFabTipoComponenteVisual;
 
 import org.coletivojava.fw.api.objetoNativo.view.componente.FamiliaComponente;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
@@ -26,18 +26,18 @@ import org.jboss.forge.roaster.model.source.PropertySource;
 public class GeradorGetComponentesVisuais extends GeradorClasseEscopoApp {
 
     private final boolean componenteNativo;
-    private final Class<? extends ItfFabTipoComponenteVisual> fabricaFamiliaComponente;
+    private final Class<? extends ComoFabTipoComponenteVisual> fabricaFamiliaComponente;
     private boolean foiGerado = false;
 
-    public GeradorGetComponentesVisuais(Class<? extends ItfFabTipoComponenteVisual> pFabrica, boolean pComponenteNativo) {
+    public GeradorGetComponentesVisuais(Class<? extends ComoFabTipoComponenteVisual> pFabrica, boolean pComponenteNativo) {
         super("org.coletivoJava.superBitsFW.webPaginas.constantes.componentes", pFabrica.getSimpleName().replace("Fab", "CompSB"), null);
         componenteNativo = pComponenteNativo;
         fabricaFamiliaComponente = pFabrica;
     }
 
-    private void adicionaComponente(ItfFabTipoComponenteVisual pcomponente, JavaClassSource pEstruturaClasse) {
+    private void adicionaComponente(ComoFabTipoComponenteVisual pcomponente, JavaClassSource pEstruturaClasse) {
 
-        pEstruturaClasse.addProperty(ItfComponenteVisualSB.class,
+        pEstruturaClasse.addProperty(ComoComponenteVisualSB.class,
                 UtilSBCoreStringsMaiuculoMinusculo.getPrimeiraLetraMinuscula(UtilSBCoreStringFiltros.gerarUrlAmigavel(pcomponente.getRegistro().getNomeComponente())))
                 .setMutable(false);
 
@@ -66,7 +66,7 @@ public class GeradorGetComponentesVisuais extends GeradorClasseEscopoApp {
         FabFamiliaCompVisual familia = fabricaFamiliaComponente.getEnumConstants()[0].getFamilia();
 
         corpoCosntructor += "this.familia = " + fabricaFamiliaComponente.getTypeName() + ".class.getEnumConstants()[0].getFamilia().getRegistro(); ";
-        for (ItfFabTipoComponenteVisual pcomp : fabricaFamiliaComponente.getEnumConstants()) {
+        for (ComoFabTipoComponenteVisual pcomp : fabricaFamiliaComponente.getEnumConstants()) {
             String nomeVariavel = UtilSBCoreStringsMaiuculoMinusculo.getPrimeiraLetraMinuscula(UtilSBCoreStringFiltros.gerarUrlAmigavel(pcomp.getRegistro().getNomeComponente()));
             corpoCosntructor += "this." + nomeVariavel + " = " + fabricaFamiliaComponente.getSimpleName() + "." + pcomp.toString() + ".getRegistro(); ";
         }
@@ -78,9 +78,9 @@ public class GeradorGetComponentesVisuais extends GeradorClasseEscopoApp {
 
         MethodSource metodoGetPadrao = getCodigoJava().addMethod();
         metodoGetPadrao.setName("getComponentePadrao");
-        metodoGetPadrao.setReturnType(ItfComponenteVisualSB.class);
+        metodoGetPadrao.setReturnType(ComoComponenteVisualSB.class);
         metodoGetPadrao.setPublic();
-        metodoGetPadrao.addParameter(ItfComponenteVisualSB.class, "pComponente");
+        metodoGetPadrao.addParameter(ComoComponenteVisualSB.class, "pComponente");
         metodoGetPadrao.setBody(" "
                 + ""
                 + "  try {"
@@ -102,7 +102,7 @@ public class GeradorGetComponentesVisuais extends GeradorClasseEscopoApp {
                 + "");
 
         adicionaFamiliaComponente(familia, getCodigoJava());
-        for (ItfFabTipoComponenteVisual pcomp : fabricaFamiliaComponente.getEnumConstants()) {
+        for (ComoFabTipoComponenteVisual pcomp : fabricaFamiliaComponente.getEnumConstants()) {
             adicionaComponente(pcomp, getCodigoJava());
         }
         foiGerado = true;

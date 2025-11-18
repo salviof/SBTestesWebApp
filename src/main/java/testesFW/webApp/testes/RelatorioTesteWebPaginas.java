@@ -8,13 +8,13 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexaoObjeto;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabMensagens;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.FabTipoAgenteDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.InfoErroSBCoreFW;
 
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
 import com.super_bits.modulosSB.SBCore.modulos.tratamentoErros.ItfInfoErroSB;
 
@@ -56,8 +56,8 @@ public abstract class RelatorioTesteWebPaginas extends RelatorioTesteAbstrato {
         return erros;
     }
 
-    public List<ItfInfoErroSB> gerarMangedBeansPgs(ItfFabricaAcoes pAcao) {
-        //    ItfAcaoDoSistema acao = UtilSBDevelGeradorCodigoWeb.gerarCodigoGetAcoesGestao(pAcao);
+    public List<ItfInfoErroSB> gerarMangedBeansPgs(ComoFabricaAcoes pAcao) {
+        //    ComoAcaoDoSistema acao = UtilSBDevelGeradorCodigoWeb.gerarCodigoGetAcoesGestao(pAcao);
         //AcaoGestaoEntidade acaogestao =
         throw new UnsupportedOperationException("Não foi implementado");
     }
@@ -72,7 +72,7 @@ public abstract class RelatorioTesteWebPaginas extends RelatorioTesteAbstrato {
 
         List<ItfInfoErroSB> erros = new ArrayList<>();
 
-        for (ItfAcaoDoSistema acao : MapaAcoesSistema.getListaTodasAcoes()) {
+        for (ComoAcaoDoSistema acao : MapaAcoesSistema.getListaTodasAcoes()) {
 
             try {
                 if (acao.isUmaAcaoGestaoDominio()) {
@@ -95,7 +95,7 @@ public abstract class RelatorioTesteWebPaginas extends RelatorioTesteAbstrato {
     public List<ItfInfoErroSB> executarTestesAcoes() {
         List<ItfInfoErroSB> erros = new ArrayList<>();
 
-        for (ItfAcaoDoSistema acao : MapaAcoesSistema.getListaTodasAcoes()) {
+        for (ComoAcaoDoSistema acao : MapaAcoesSistema.getListaTodasAcoes()) {
 
             try {
                 UtilTestePagina.testaconfigIcone(acao.getEnumAcaoDoSistema());
