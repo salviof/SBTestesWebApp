@@ -5,8 +5,8 @@
 package testesFW.webApp.testes.geradorCodigo;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringFiltros;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringsMaiuculoMinusculo;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringFiltros;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringsMaiuculoMinusculo;
 
 import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.FabFamiliaCompVisual;
 import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.ComoComponenteVisualSB;
@@ -38,7 +38,7 @@ public class GeradorGetComponentesVisuais extends GeradorClasseEscopoApp {
     private void adicionaComponente(ComoFabTipoComponenteVisual pcomponente, JavaClassSource pEstruturaClasse) {
 
         pEstruturaClasse.addProperty(ComoComponenteVisualSB.class,
-                UtilSBCoreStringsMaiuculoMinusculo.getPrimeiraLetraMinuscula(UtilSBCoreStringFiltros.gerarUrlAmigavel(pcomponente.getRegistro().getNomeComponente())))
+                UtilCRCStringsMaiuculoMinusculo.getPrimeiraLetraMinuscula(UtilCRCStringFiltros.gerarUrlAmigavel(pcomponente.getRegistro().getNomeComponente())))
                 .setMutable(false);
 
     }
@@ -67,7 +67,7 @@ public class GeradorGetComponentesVisuais extends GeradorClasseEscopoApp {
 
         corpoCosntructor += "this.familia = " + fabricaFamiliaComponente.getTypeName() + ".class.getEnumConstants()[0].getFamilia().getRegistro(); ";
         for (ComoFabTipoComponenteVisual pcomp : fabricaFamiliaComponente.getEnumConstants()) {
-            String nomeVariavel = UtilSBCoreStringsMaiuculoMinusculo.getPrimeiraLetraMinuscula(UtilSBCoreStringFiltros.gerarUrlAmigavel(pcomp.getRegistro().getNomeComponente()));
+            String nomeVariavel = UtilCRCStringsMaiuculoMinusculo.getPrimeiraLetraMinuscula(UtilCRCStringFiltros.gerarUrlAmigavel(pcomp.getRegistro().getNomeComponente()));
             corpoCosntructor += "this." + nomeVariavel + " = " + fabricaFamiliaComponente.getSimpleName() + "." + pcomp.toString() + ".getRegistro(); ";
         }
 

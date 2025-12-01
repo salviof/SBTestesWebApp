@@ -7,11 +7,11 @@ package testesFW.webApp.testes;
 import br.org.coletivojava.erp.comunicacao.transporte.ERPTipoCanalComunicacao;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringNomeArquivosEDiretorios;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringNomeArquivosEDiretorios;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
-import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivoTexto;
-import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivos;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilCRCArquivoTexto;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilCRCArquivos;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoRespostaComunicacao;
 
@@ -31,7 +31,7 @@ public abstract class UtilTestePagina {
 
     public static boolean temPastaModuloNoProjeto() {
         String pastaModulo = SBCore.getCaminhoDesenvolvimento() + "/src/main/webapp/site/modulos";
-        return UtilSBCoreArquivos.isArquivoExiste(pastaModulo);
+        return UtilCRCArquivos.isArquivoExiste(pastaModulo);
     }
 
     private static String getPastaExemplos() {
@@ -62,7 +62,7 @@ public abstract class UtilTestePagina {
         //
 
         String caminhoCompletoArquivoFormulario = SBCore.getServicoVisualizacao().getCaminhoWebAppDeveloper() + pAcao.getXhtml();
-        if (!UtilSBCoreArquivos.isArquivoExiste(caminhoCompletoArquivoFormulario)) {
+        if (!UtilCRCArquivos.isArquivoExiste(caminhoCompletoArquivoFormulario)) {
             System.out.println("Formulário não encontrado:");
             System.out.println(caminhoCompletoArquivoFormulario);
             String arquivoformularioModelo = getPastaExemplos() + "/formularioPadrao.xhtml";
@@ -91,17 +91,17 @@ public abstract class UtilTestePagina {
                             mensagemComunicacao),
                     0, FabTipoRespostaComunicacao.PERSONALIZADA) == FabTipoRespostaComunicacao.SIM) {
 
-                if (!UtilSBCoreArquivos.isArquivoExiste(arquivoformularioModelo)) {
+                if (!UtilCRCArquivos.isArquivoExiste(arquivoformularioModelo)) {
                     throw new UnsupportedOperationException("Não será possível criar uma pagina para seu projeto baseado em um modelo \n "
                             + "O arquivo xhtml modelo não foi encontrado em: " + arquivoformularioModelo + " \n  "
                             + "se você está perdido, e não tem a mínima ideia de como você pode criar estes arquivos, não entre em pânico, \n "
                             + "você pode encontrar uma pasta de exemplos como referencia no projeto webapp do SuperBitsWpStarter localizado em \n "
                             + "(/home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork/SuperBitsWPStarter/)");
                 }
-                if (!UtilSBCoreArquivos.criarDiretorioParaArquivo(caminhoCompletoArquivoFormulario)) {
-                    throw new UnsupportedOperationException("não foi possícel criar o diretorio para " + UtilSBCoreStringNomeArquivosEDiretorios.getDiretorioArquivo(caminhoCompletoArquivoFormulario));
+                if (!UtilCRCArquivos.criarDiretorioParaArquivo(caminhoCompletoArquivoFormulario)) {
+                    throw new UnsupportedOperationException("não foi possícel criar o diretorio para " + UtilCRCStringNomeArquivosEDiretorios.getDiretorioArquivo(caminhoCompletoArquivoFormulario));
                 }
-                if (!UtilSBCoreArquivos.copiarArquivos(arquivoformularioModelo, caminhoCompletoArquivoFormulario)) {
+                if (!UtilCRCArquivos.copiarArquivos(arquivoformularioModelo, caminhoCompletoArquivoFormulario)) {
                     throw new UnsupportedOperationException(
                             "O sistema tentou criar o arquivo de formulario para " + pAcao.getNomeUnico()
                             + "mas um erro imprevisto aconteceu! \n "
@@ -144,9 +144,9 @@ public abstract class UtilTestePagina {
             String iconeSemInicio = icone.substring(3);
             String iconeClassFOntAnsome = iconeSemInicio.split(" ")[0];
             String arquivoCSSFOntAnsome = "/home/superBits/projetos/coletivoJava/source/fw/SBWebPaginas/src/main/resources/META-INF/resources/fontAwesome/css/font-awesome.css";
-            Assert.assertTrue("O arquivo font-awesome.css não foi encontrado no sistema", UtilSBCoreArquivos.isArquivoExiste(arquivoCSSFOntAnsome));
+            Assert.assertTrue("O arquivo font-awesome.css não foi encontrado no sistema", UtilCRCArquivos.isArquivoExiste(arquivoCSSFOntAnsome));
 
-            if (!UtilSBCoreArquivoTexto.isTemPalavraNoArquivo(arquivoCSSFOntAnsome, iconeClassFOntAnsome)) {
+            if (!UtilCRCArquivoTexto.isTemPalavraNoArquivo(arquivoCSSFOntAnsome, iconeClassFOntAnsome)) {
 
                 throw new UnsupportedOperationException("O ícone  da ação " + pAcaoDoSistema.getRegistro().getNomeUnico() + " com nome [" + iconeSemInicio + "] não foi encontrado no arquivo css do FontAswome e");
             }

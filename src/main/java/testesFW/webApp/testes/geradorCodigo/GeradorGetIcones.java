@@ -4,9 +4,9 @@
  */
 package testesFW.webApp.testes.geradorCodigo;
 
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringFiltros;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringValidador;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringsMaiuculoMinusculo;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringFiltros;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringValidador;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringsMaiuculoMinusculo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.ComoFabricaIcone;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.ComoIcone;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
@@ -30,7 +30,7 @@ public class GeradorGetIcones extends GeradorClasseEscopoApp {
     private void adicionaIcone(ComoFabricaIcone pIcone, JavaClassSource pEstruturaClasse) {
 
         pEstruturaClasse.addProperty(ComoIcone.class,
-                UtilSBCoreStringsMaiuculoMinusculo.getPrimeiraLetraMinuscula(UtilSBCoreStringFiltros.gerarUrlAmigavel(pIcone.toString())))
+                UtilCRCStringsMaiuculoMinusculo.getPrimeiraLetraMinuscula(UtilCRCStringFiltros.gerarUrlAmigavel(pIcone.toString())))
                 .setMutable(false);
 
     }
@@ -41,7 +41,7 @@ public class GeradorGetIcones extends GeradorClasseEscopoApp {
         String corpoCosntructor = "";
 
         for (ComoFabricaIcone pcomp : fabricaIcones.getEnumConstants()) {
-            String nomeVariavel = UtilSBCoreStringsMaiuculoMinusculo.getPrimeiraLetraMinuscula(UtilSBCoreStringFiltros.gerarUrlAmigavel(pcomp.toString()));
+            String nomeVariavel = UtilCRCStringsMaiuculoMinusculo.getPrimeiraLetraMinuscula(UtilCRCStringFiltros.gerarUrlAmigavel(pcomp.toString()));
             corpoCosntructor += "this." + nomeVariavel + " = " + fabricaIcones.getSimpleName() + "." + pcomp.toString() + ".getIcone(); ";
         }
 

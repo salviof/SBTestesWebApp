@@ -5,8 +5,8 @@
 package testesFW.webApp.testes.geradorCodigo;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringValidador;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringsMaiuculoMinusculo;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringValidador;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringsMaiuculoMinusculo;
 import com.super_bits.modulosSB.SBCore.modulos.view.componenteObjeto.ContainerVisualizacaoObjeto;
 import com.super_bits.modulosSB.SBCore.modulos.view.componenteObjeto.ContainersVisualizacaoDoObjeto;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
@@ -52,13 +52,13 @@ public class GeradorGetVisualizacaoContainer extends GeradorClasseEscopoApp {
 
                 getCodigoJava().addMethod()
                         .setPublic()
-                        .setName("getTipoVisao" + UtilSBCoreStringsMaiuculoMinusculo.getPrimeiraLetraMaiusculo(visualizacao) + containerVisual.getColunas() + "ColDesk")
+                        .setName("getTipoVisao" + UtilCRCStringsMaiuculoMinusculo.getPrimeiraLetraMaiusculo(visualizacao) + containerVisual.getColunas() + "ColDesk")
                         .setReturnType(ContainerVisualizacaoObjeto.class)
                         .setBody(" return  containersVisuais.getContainerAdequado(\"" + visualizacao + "\"," + containerVisual.getColunas() + ",false);");
                 if (containerVisual.isTemVersaoMobile()) {
                     getCodigoJava().addMethod()
                             .setPublic()
-                            .setName("getTipoVisao" + UtilSBCoreStringsMaiuculoMinusculo.getPrimeiraLetraMaiusculo(visualizacao) + containerVisual.getColunas() + "ColMobile")
+                            .setName("getTipoVisao" + UtilCRCStringsMaiuculoMinusculo.getPrimeiraLetraMaiusculo(visualizacao) + containerVisual.getColunas() + "ColMobile")
                             .setReturnType(String.class)
                             .setBody(" return  containersVisuais.getContainerAdequado(\"" + visualizacao + "\"," + containerVisual.getColunas() + ",true);");
                 }

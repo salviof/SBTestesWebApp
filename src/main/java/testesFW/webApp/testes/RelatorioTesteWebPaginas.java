@@ -6,7 +6,7 @@ package testesFW.webApp.testes;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexaoObjeto;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCReflexaoObjeto;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
@@ -38,7 +38,7 @@ public abstract class RelatorioTesteWebPaginas extends RelatorioTesteAbstrato {
         for (Class entidade : clasesesObjetos) {
             try {
                 System.out.println("entidade::::" + entidade.getSimpleName());
-                UtilSBCoreReflexaoObjeto.getNomeDoObjetoPorAnotacaoInfoClasse(entidade);
+                UtilCRCReflexaoObjeto.getNomeDoObjetoPorAnotacaoInfoClasse(entidade);
             } catch (Throwable t) {
                 InfoErroSBCoreFW errro = new InfoErroSBCoreFW();
                 errro.configurar(new Mensagem(FabTipoAgenteDoSistema.DESENVOLVEDOR, FabMensagens.ERRO, t.getMessage()), FabErro.ARQUIVAR_LOG, t);

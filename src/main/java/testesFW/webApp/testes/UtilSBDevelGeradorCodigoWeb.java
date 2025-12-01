@@ -6,7 +6,7 @@ package testesFW.webApp.testes;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
-import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivoTexto;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilCRCArquivoTexto;
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.ComoFabricaIcone;
@@ -27,7 +27,7 @@ public class UtilSBDevelGeradorCodigoWeb {
     public static void gerarGetAppScopeAcoesDeGestaoDoProjeto(ItfAcaoGerenciarEntidade pAcao) {
         try {
             GeradorGetAcaoDaGestao geradorGetAcaoAppScopo = new GeradorGetAcaoDaGestao(pAcao);
-            UtilSBCoreArquivoTexto.escreverEmArquivoSubstituindoArqAnterior(geradorGetAcaoAppScopo.getCaminhoLocalSalvarCodigo(), geradorGetAcaoAppScopo.getCodigoJava().toString());
+            UtilCRCArquivoTexto.escreverEmArquivoSubstituindoArqAnterior(geradorGetAcaoAppScopo.getCaminhoLocalSalvarCodigo(), geradorGetAcaoAppScopo.getCodigoJava().toString());
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro gerando Bean escopo de aplicação para ação de gestão:" + pAcao, t);
         }
@@ -38,7 +38,7 @@ public class UtilSBDevelGeradorCodigoWeb {
         geradorComp.gerarCodigo();
         String conteudoClasse = geradorComp.getCodigoJava().toString();
         String arquivo = geradorComp.getCaminhoLocalSalvarCodigo();
-        UtilSBCoreArquivoTexto.escreverEmArquivoSubstituindoArqAnterior(arquivo, conteudoClasse);
+        UtilCRCArquivoTexto.escreverEmArquivoSubstituindoArqAnterior(arquivo, conteudoClasse);
 
     }
 
@@ -46,7 +46,7 @@ public class UtilSBDevelGeradorCodigoWeb {
 
         GeradorGetIcones geradorGetIcones = new GeradorGetIcones(pFabrica, componenteNativo);
         geradorGetIcones.gerarCodigo();
-        UtilSBCoreArquivoTexto.escreverEmArquivoSubstituindoArqAnterior(geradorGetIcones.getCaminhoLocalSalvarCodigo(), geradorGetIcones.getCodigoJava().toString());
+        UtilCRCArquivoTexto.escreverEmArquivoSubstituindoArqAnterior(geradorGetIcones.getCaminhoLocalSalvarCodigo(), geradorGetIcones.getCodigoJava().toString());
 
     }
 
@@ -56,7 +56,7 @@ public class UtilSBDevelGeradorCodigoWeb {
             Class classe = MapaObjetosProjetoAtual.getClasseDoObjetoByNome(objEst.getNomeEntidade());
             if (new ContainersVisualizacaoDoObjeto(classe).isPossuiVisualizacoes()) {
                 GeradorGetVisualizacaoContainer geradorContainers = new GeradorGetVisualizacaoContainer(classe);
-                UtilSBCoreArquivoTexto.escreverEmArquivoSubstituindoArqAnterior(geradorContainers.getCaminhoLocalSalvarCodigo(), geradorContainers.getCodigoJava().toString());
+                UtilCRCArquivoTexto.escreverEmArquivoSubstituindoArqAnterior(geradorContainers.getCaminhoLocalSalvarCodigo(), geradorContainers.getCodigoJava().toString());
             }
         }
 

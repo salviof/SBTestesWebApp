@@ -5,7 +5,7 @@
 package testesFW.webApp.testes.geradorCodigo;
 
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringsCammelCase;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringsCammelCase;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoController;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoControllerEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
@@ -34,13 +34,13 @@ public class GeradorGetAcaoDaGestao extends GeradorClasseEscopoApp {
     private static String getNomeClasseGetAcoesGestao(ItfAcaoGerenciarEntidade pAcao) {
 
         return "Acoes"
-                + UtilSBCoreStringsCammelCase.getCamelByTextoPrimeiraLetraMaiusculaSemCaracterEspecial(pAcao.getModulo().getEnumVinculado().toString())
+                + UtilCRCStringsCammelCase.getCamelByTextoPrimeiraLetraMaiusculaSemCaracterEspecial(pAcao.getModulo().getEnumVinculado().toString())
                 + "_"
-                + UtilSBCoreStringsCammelCase.getCamelByTextoPrimeiraLetraMaiusculaSemCaracterEspecial(pAcao.getEnumAcaoDoSistema().toString());
+                + UtilCRCStringsCammelCase.getCamelByTextoPrimeiraLetraMaiusculaSemCaracterEspecial(pAcao.getEnumAcaoDoSistema().toString());
     }
 
     public static void adicionarAcao(JavaClassSource estruturaClasse, ComoAcaoDoSistema pAcao) {
-        String nomePropriedade = UtilSBCoreStringsCammelCase.getCamelByTextoPrimeiraLetraMaiusculaSemCaracterEspecial(pAcao.getEnumAcaoDoSistema().toString());
+        String nomePropriedade = UtilCRCStringsCammelCase.getCamelByTextoPrimeiraLetraMaiusculaSemCaracterEspecial(pAcao.getEnumAcaoDoSistema().toString());
 
         String nomeMetodo = "get" + nomePropriedade;
 
