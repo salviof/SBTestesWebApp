@@ -7,8 +7,8 @@ package testesFW.webApp.testes.geradorCodigo;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringFiltros;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringValidador;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringsMaiuculoMinusculo;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.ComoFabricaIcone;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.ComoIcone;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.icones.ComoFabricaIcone;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.icones.ComoIcone;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.MethodSource;
 
