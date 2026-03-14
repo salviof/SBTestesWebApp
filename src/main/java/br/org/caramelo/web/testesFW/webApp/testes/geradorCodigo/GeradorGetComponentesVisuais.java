@@ -2,7 +2,7 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package testesFW.webApp.testes.geradorCodigo;
+package br.org.caramelo.web.testesFW.webApp.testes.geradorCodigo;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringFiltros;
@@ -103,7 +103,12 @@ public class GeradorGetComponentesVisuais extends GeradorClasseEscopoApp {
 
         adicionaFamiliaComponente(familia, getCodigoJava());
         for (ComoFabTipoComponenteVisual pcomp : fabricaFamiliaComponente.getEnumConstants()) {
-            adicionaComponente(pcomp, getCodigoJava());
+            try {
+                adicionaComponente(pcomp, getCodigoJava());
+            } catch (Throwable t) {
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Falha adicionando compoente" + pcomp, t);
+                throw t;
+            }
         }
         foiGerado = true;
         return getCodigoJava();

@@ -2,7 +2,7 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package testesFW.webApp.testes;
+package br.org.caramelo.web.testesFW.webApp.testes;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
@@ -13,10 +13,10 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.icones.ComoFabri
 import com.super_bits.modulosSB.SBCore.modulos.view.componenteObjeto.ContainersVisualizacaoDoObjeto;
 import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.ComoFabTipoComponenteVisual;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
-import testesFW.webApp.testes.geradorCodigo.GeradorGetAcaoDaGestao;
-import testesFW.webApp.testes.geradorCodigo.GeradorGetComponentesVisuais;
-import testesFW.webApp.testes.geradorCodigo.GeradorGetIcones;
-import testesFW.webApp.testes.geradorCodigo.GeradorGetVisualizacaoContainer;
+import br.org.caramelo.web.testesFW.webApp.testes.geradorCodigo.GeradorGetAcaoDaGestao;
+import br.org.caramelo.web.testesFW.webApp.testes.geradorCodigo.GeradorGetComponentesVisuais;
+import br.org.caramelo.web.testesFW.webApp.testes.geradorCodigo.GeradorGetIcones;
+import br.org.caramelo.web.testesFW.webApp.testes.geradorCodigo.GeradorGetVisualizacaoContainer;
 
 /**
  *

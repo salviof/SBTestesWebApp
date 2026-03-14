@@ -2,13 +2,13 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package testesFW.webApp.testes.geradorCodigo;
+package br.org.caramelo.web.testesFW.webApp.testes.geradorCodigo;
 
 import java.io.Serializable;
 import javax.inject.Named;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 import testesFW.geradorDeCodigo.GeradorClasseGenerico;
-import testesFW.webApp.testes.UtilTestePagina;
+import br.org.caramelo.web.testesFW.webApp.testes.UtilTestePagina;
 
 /**
  *
