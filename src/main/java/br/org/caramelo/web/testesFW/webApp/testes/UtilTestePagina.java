@@ -143,7 +143,7 @@ public abstract class UtilTestePagina {
 
             String iconeSemInicio = icone.substring(3);
             String iconeClassFOntAnsome = iconeSemInicio.split(" ")[0];
-            String arquivoCSSFOntAnsome = "/home/superBits/projetos/coletivoJava/source/fw/SBWebPaginas/src/main/resources/META-INF/resources/fontAwesome/css/font-awesome.css";
+            String arquivoCSSFOntAnsome = "/home/superBits/projetos/coletivoJava/source/fw/carameloWebAppTaglib/src/main/resources/META-INF/resources/SBComp/recursos/fontAwesome/css/font-awesome.css";
             Assert.assertTrue("O arquivo font-awesome.css não foi encontrado no sistema", UtilCRCArquivos.isArquivoExiste(arquivoCSSFOntAnsome));
 
             if (!UtilCRCArquivoTexto.isTemPalavraNoArquivo(arquivoCSSFOntAnsome, iconeClassFOntAnsome)) {
