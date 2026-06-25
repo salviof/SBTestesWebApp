@@ -4,6 +4,7 @@
  */
 package br.org.caramelo.web.testesFW.webApp.testes;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.CarameloCode;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringNomeArquivosEDiretorios;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
@@ -15,7 +16,11 @@ import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.FabTipoRespostaComunicacao;
 
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.servicosCore.ErroDetectandoTelaBloqueio;
 import com.super_bits.modulosSB.SBCore.modulos.view.formulario.ItfFormularioEntidade;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.coletivojava.fw.api.tratamentoErros.FabErro;
 
 import org.junit.Assert;
 import static org.junit.Assert.assertNotNull;
@@ -85,27 +90,31 @@ public abstract class UtilTestePagina {
             String mensagemComunicacao = "O XHTML da ação  " + pAcao.getNomeUnico() + "  não foi encontrado, deseja criar o arquivo de maneira automática ? \\n \"\n"
                     + "O arquivo será criado em: " + caminhoCompletoArquivoFormulario + " \\n\"\n"
                     + "A partir de uma cópia de: " + arquivoformularioModelo;
-            if (SBCore.getServicoComunicacao().aguardarRespostaComunicacao(ERPTipoCanalComunicacao.INTRANET_BLOQUEIO_TELA.getRegistro(),
-                    SBCore.getServicoComunicacao().gerarComunicacaoSistema_UsuarioLogado(FabTipoComunicacao.PERGUNTAR_SIM_OU_NAO,
-                            mensagemComunicacao),
-                    0, FabTipoRespostaComunicacao.PERSONALIZADA) == FabTipoRespostaComunicacao.SIM) {
+            try {
+                if (SBCore.getServicoComunicacao().aguardarRespostaComunicacao(ERPTipoCanalComunicacao.INTRANET_BLOQUEIO_TELA.getRegistro(),
+                        SBCore.getServicoComunicacao().gerarComunicacaoSistema_UsuarioLogado(FabTipoComunicacao.PERGUNTAR_SIM_OU_NAO,
+                                mensagemComunicacao),
+                        0, FabTipoRespostaComunicacao.PERSONALIZADA) == FabTipoRespostaComunicacao.SIM) {
 
-                if (!UtilCRCArquivos.isArquivoExiste(arquivoformularioModelo)) {
-                    throw new UnsupportedOperationException("Não será possível criar uma pagina para seu projeto baseado em um modelo \n "
-                            + "O arquivo xhtml modelo não foi encontrado em: " + arquivoformularioModelo + " \n  "
-                            + "se você está perdido, e não tem a mínima ideia de como você pode criar estes arquivos, não entre em pânico, \n "
-                            + "você pode encontrar uma pasta de exemplos como referencia no projeto webapp do SuperBitsWpStarter localizado em \n "
-                            + "(/home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork/SuperBitsWPStarter/)");
+                    if (!UtilCRCArquivos.isArquivoExiste(arquivoformularioModelo)) {
+                        throw new UnsupportedOperationException("Não será possível criar uma pagina para seu projeto baseado em um modelo \n "
+                                + "O arquivo xhtml modelo não foi encontrado em: " + arquivoformularioModelo + " \n  "
+                                + "se você está perdido, e não tem a mínima ideia de como você pode criar estes arquivos, não entre em pânico, \n "
+                                + "você pode encontrar uma pasta de exemplos como referencia no projeto webapp do SuperBitsWpStarter localizado em \n "
+                                + "(/home/superBits/projetos/Super_Bits/source/SuperBits_FrameWork/SuperBitsWPStarter/)");
+                    }
+                    if (!UtilCRCArquivos.criarDiretorioParaArquivo(caminhoCompletoArquivoFormulario)) {
+                        throw new UnsupportedOperationException("não foi possícel criar o diretorio para " + UtilCRCStringNomeArquivosEDiretorios.getDiretorioArquivo(caminhoCompletoArquivoFormulario));
+                    }
+                    if (!UtilCRCArquivos.copiarArquivos(arquivoformularioModelo, caminhoCompletoArquivoFormulario)) {
+                        throw new UnsupportedOperationException(
+                                "O sistema tentou criar o arquivo de formulario para " + pAcao.getNomeUnico()
+                                + "mas um erro imprevisto aconteceu! \n "
+                                + "nessas horas não se esqueça: quem debuga usa a força para o bem \n");
+                    }
                 }
-                if (!UtilCRCArquivos.criarDiretorioParaArquivo(caminhoCompletoArquivoFormulario)) {
-                    throw new UnsupportedOperationException("não foi possícel criar o diretorio para " + UtilCRCStringNomeArquivosEDiretorios.getDiretorioArquivo(caminhoCompletoArquivoFormulario));
-                }
-                if (!UtilCRCArquivos.copiarArquivos(arquivoformularioModelo, caminhoCompletoArquivoFormulario)) {
-                    throw new UnsupportedOperationException(
-                            "O sistema tentou criar o arquivo de formulario para " + pAcao.getNomeUnico()
-                            + "mas um erro imprevisto aconteceu! \n "
-                            + "nessas horas não se esqueça: quem debuga usa a força para o bem \n");
-                }
+            } catch (ErroDetectandoTelaBloqueio ex) {
+                CarameloCode.RelatarErro(FabErro.SOLICITAR_REPARO, "Falha detectando tela do usuário para bloqueio de processo", ex);
             }
         }
         //   throw new UnsupportedOperationException("O arquivo xhtml da ação " + pAcao.getNomeUnico() + " não foi encontrado em " + SBWebPaginas.getCaminhoWebAppDeveloper() + pAcao.getXhtml());
