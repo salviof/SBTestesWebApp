@@ -98,11 +98,12 @@ public abstract class RelatorioTesteWebPaginas extends RelatorioTesteAbstrato {
         for (ComoAcaoDoSistema acao : MapaAcoesSistema.getListaTodasAcoes()) {
 
             try {
-                UtilTestePagina.testaconfigIcone(acao.getEnumAcaoDoSistema());
+
                 if (acao.isUmaAcaoFormulario()) {
 
                     UtilTestePagina.testaAcaoFormulario(acao.getComoFormulario());
                 }
+                UtilTestePagina.testaconfigIcone(acao.getEnumAcaoDoSistema());
             } catch (Throwable t) {
                 InfoErroSBCoreFW errro = new InfoErroSBCoreFW();
                 errro.configurar(new Mensagem(FabTipoAgenteDoSistema.DESENVOLVEDOR, FabMensagens.ERRO, t.getMessage()), FabErro.ARQUIVAR_LOG, t);
